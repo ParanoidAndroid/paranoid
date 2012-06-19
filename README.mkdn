@@ -24,9 +24,9 @@ Now you must run extract-files script
 
     ./extract-files.sh
 
-After finished, cd back, and run our build script (you must set +x permissions):
+After finished, cd back, and run our build script:
 
-    . paranoid/build.sh <device>
+    ./paranoid/build.sh <device>
 
 
 This will make a signed zip located on out/target/product/<device>.
