@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "WORK IN PROGRESS, PLEASE DO MANUAL COMPILATION";
