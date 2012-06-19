@@ -40,8 +40,8 @@ Parameters will be considered false unless you set them to true
 
 This will make a signed zip located on out/target/product/<device>.
 
-Feel free to contribute with the project
-----------------------------------------
+Contribute with the project
+---------------------------
 
 We're an open source project, and we're open to suggestions. Feel free to sumbit pull requests to our git
 
