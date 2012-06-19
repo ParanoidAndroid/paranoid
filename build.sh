@@ -56,6 +56,7 @@ case "$ARGUMENTS" in
        exit;;
 esac
 
+# change density for trigger on tablet mode
 echo -e "${bldblu}Overwriting density for trigger density ${txtrst}"
 cd device/$manufacturer/$device/
 git reset --hard >/dev/null
