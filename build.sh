@@ -12,15 +12,17 @@ bldcya=${txtbld}$(tput setaf 6) #  cyan
 txtrst=$(tput sgr0)             # Reset
 
 ARGUMENTS="$1"
-SYNC="$2"
-CLEAN="$3"
+EXTRAS="$2"
+SYNC="$3"
+CLEAN="$4"
 
 # get time of startup
 res1=$(date +%s.%N)
 
 if [ "$CLEAN" == "true" ]
 then
-   # we don't allow scrollback command
+ 
+   # we don't allow scrollback buffer
    echo -e '\0033\0143'
    clear
 fi
@@ -55,6 +57,14 @@ case "$ARGUMENTS" in
    *)
        echo -e "${bldred}Please input device name ${txtrst}"
        exit;;
+esac
+
+# decide what command to execute
+case "$EXTRAS" in
+   clean)
+       echo -e ""
+       echo -e "${bldblu}Cleaning intermediates and output files ${txtrst}"
+       make clean > /dev/null;;
 esac
 
 echo -e ""
