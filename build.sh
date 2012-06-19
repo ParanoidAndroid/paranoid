@@ -27,7 +27,7 @@ fi
 # decide what device to build for
 case "$ARGUMENTS" in
    galaxys2)
-       densitytrigger="120"
+       densitytrigger="128"
        device="galaxys2"
        manufacturer="samsung"
        echo -e "${bldcya}Building ${bldgrn}ParanoidAndroid ${bldcya}for International Samsung Galaxy S2 ${txtrst}";;
