@@ -28,9 +28,15 @@ After finished, cd back, and run our build script:
 
     ./paranoid/build.sh <device>
 
-You can use "true" argument for clean console after start command
+You can use a parameter for syncing sources before building
 
     ./paranoid/build.sh <device> true
+
+And a second parameter for clean console before start building
+
+    ./paranoid/build.sh <device> <sync> true
+
+Parameters will be considered false unless you set them to true
 
 This will make a signed zip located on out/target/product/<device>.
 
