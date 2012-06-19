@@ -5,11 +5,11 @@ Getting started
 ---------------
 First you must initialize a repository with our sources
 
-  repo init -u git@bitbucket.org:paranoidandroid/android.git -b ics
+    repo init -u git@bitbucket.org:paranoidandroid/android.git -b ics
 
 Then sync (This will take a while, so get a cup of coffee and some snickers)
 
-  repo sync
+    repo sync
 
 
 Building ParanoidAndroid
@@ -18,15 +18,15 @@ Building ParanoidAndroid
 For building ParanoidAndroid you must cd to the working directory.
 After that cd to your device tree, and make sure your device is connected and adb correctly seted up
 
-  cd device/samsung/galaxys2
+    cd device/samsung/<device>
 
 Then run extract-files script
 
-  ./extract-files.sh
+    ./extract-files.sh
 
 After finished, cd back, and run our build script (you must set +x permissions)
 
-  . paranoid/build.sh <device>
+    . paranoid/build.sh <device>
 
 
 This will make a signed zip located on out/target/product/<device>/
