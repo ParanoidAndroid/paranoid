@@ -13,8 +13,16 @@ txtrst=$(tput sgr0)             # Reset
 
 ARGUMENTS="$1"
 EXTRAS="$2"
-SYNC="$3"
-CLEAN="$4"
+
+# if we have not extras, reduce parameter index by 1
+if [ "$EXTRAS" == "true" ]
+then
+   SYNC="$2"
+   CLEAN="$3"
+else
+   SYNC="$3"
+   CLEAN="$4"
+fi
 
 # get time of startup
 res1=$(date +%s.%N)
