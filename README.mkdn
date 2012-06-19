@@ -18,7 +18,7 @@ Building ParanoidAndroid
 For building ParanoidAndroid you must cd to the working directory.
 Make sure your device is connected and adb it's correctly set up, then proceed to run:
 
-    cd device/samsung/<device>
+    cd device/<manufacturer>/<device>
 
 Now you must run extract-files script
 
