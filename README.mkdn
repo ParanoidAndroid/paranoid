@@ -28,6 +28,9 @@ After finished, cd back, and run our build script:
 
     ./paranoid/build.sh <device>
 
+You can use "true" argument for clean console after start command
+
+    ./paranoid/build.sh <device> true
 
 This will make a signed zip located on out/target/product/<device>.
 

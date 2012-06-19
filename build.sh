@@ -45,7 +45,7 @@ case "$ARGUMENTS" in
 esac
 
 # sync with latest sources
-echo -e "${bldblu} Fetching latest sources"
+echo -e "${bldblu}Fetching latest sources"
 repo sync -j16
 
 echo -e "${txtrst}"
