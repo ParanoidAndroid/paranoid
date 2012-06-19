@@ -83,16 +83,6 @@ cd vendor/cm
 cd ./../..
 
 echo -e ""
-# change density for trigger on tablet mode
-echo -e "${bldblu}Overwriting density for trigger density ${txtrst}"
-cd device/$manufacturer/$device/
-git reset --hard >/dev/null
-find ./ -type f -exec sed -i 's|ro.sf.lcd_density=.*|ro.sf.lcd_density='$densitytrigger'|' {} \;
-
-cd ./../../..
-
-echo -e ""
-
 # sync with latest sources
 if [ "$SYNC" == "true" ]
 then
@@ -110,7 +100,7 @@ echo -e ""
 echo -e "${bldblu}Lunching device ${txtrst}"
 
 # lunch device
-lunch "cm_$device-userdebug";
+lunch "pa_$device-userdebug";
 
 echo -e ""
 echo -e "${bldblu}Starting compilation ${txtrst}"
