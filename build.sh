@@ -27,24 +27,41 @@ fi
 # decide what device to build for
 case "$ARGUMENTS" in
    galaxys2)
+       densitytrigger="120"
        device="galaxys2"
+       manufacturer="samsung"
        echo -e "${bldcya}Building ${bldgrn}ParanoidAndroid ${bldcya}for International Samsung Galaxy S2 ${txtrst}";;
    maguro)
+       densitytrigger="192"
        device="maguro"
+       manufacturer="samsung"
        echo -e "${bldcya}Building ${bldgrn}ParanoidAndroid ${bldcya}for International Samsung Galaxy Nexus ${txtrst}";;
    galaxys3)
+       densitytrigger="192"
        device="i9300"
+       manufacturer="samsung"
        echo -e "${bldcya}Building ${bldgrn}ParanoidAndroid ${bldcya}for International Samsung Galaxy S3 ${txtrst}";;
    toro)
+       densitytrigger="192"
        device="toro"
+       manufacturer="samsung"
        echo -e "${bldcya}Building ${bldgrn}ParanoidAndroid ${bldcya}for Verizon Samsung Galaxy Nexus ${txtrst}";;
    toroplus)
+       densitytrigger="192"
        device="toroplus"
+       manufacturer="samsung"
        echo -e "${bldcya}Building ${bldgrn}ParanoidAndroid ${bldcya}for Sprint Samsung Galaxy Nexus ${txtrst}";;
    *)
        echo -e "${bldred}Please input device name ${txtrst}"
        exit;;
 esac
+
+echo -e "${bldblu}Overwriting density for trigger density ${txtrst}"
+cd device/$manufacturer/$device/
+git reset --hard >/dev/null
+find ./ -type f -exec sed -i 's|ro.sf.lcd_density=.*|ro.sf.lcd_density='$densitytrigger'|' {} \;
+
+cd ./../../..
 
 echo -e ""
 
