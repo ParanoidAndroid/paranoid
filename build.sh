@@ -106,7 +106,7 @@ echo -e ""
 echo -e "${bldblu}Starting compilation ${txtrst}"
 
 # start compilation
-brunch "cm_$device-userdebug";
+brunch "pa_$device-userdebug";
 echo -e ""
 
 # finished? get elapsed time
