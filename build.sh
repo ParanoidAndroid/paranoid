@@ -82,6 +82,7 @@ case "$EXTRAS" in
        rm paranoid/.manifest;;
 esac
 
+# decide manifest to copy
 echo -e ""
 echo -e "${bldblu}Copying device manifest ${txtrst}"
 cp paranoid/manifests/"${device}_manifest.xml" .repo/local_manifest.xml
@@ -94,15 +95,15 @@ then
     touch paranoid/.manifest
 fi
 
-echo -e ""
 # download prebuilt files
+echo -e ""
 echo -e "${bldblu}Downloading prebuilts ${txtrst}"
 cd vendor/cm
 ./get-prebuilts
 cd ./../..
 
-echo -e ""
 # sync with latest sources
+echo -e ""
 if [ "$SYNC" == "true" ] && [ "$loadmanifest" != "true" ]
 then
    echo -e "${bldblu}Fetching latest sources ${txtrst}"
@@ -110,22 +111,20 @@ then
    echo -e ""
 fi
 
-echo -e "${bldblu}Setting up environment ${txtrst}"
-
 # setup environment
+echo -e "${bldblu}Setting up environment ${txtrst}"
 . build/envsetup.sh
 
+# lunch device
 echo -e ""
 echo -e "${bldblu}Lunching device ${txtrst}"
-
-# lunch device
 lunch "pa_$device-userdebug";
 
 echo -e ""
 echo -e "${bldblu}Starting compilation ${txtrst}"
 
 # start compilation
-#brunch "pa_$device-userdebug";
+brunch "pa_$device-userdebug";
 echo -e ""
 
 # finished? get elapsed time
