@@ -41,31 +41,30 @@ case "$ARGUMENTS" in
    galaxys2)
        densitytrigger="128"
        device="galaxys2"
-       manufacturer="samsung"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy S2 ${txtrst}";;
    maguro)
        densitytrigger="192"
        device="maguro"
-       manufacturer="samsung"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy Nexus ${txtrst}";;
    galaxys3)
        densitytrigger="192"
        device="i9300"
-       manufacturer="samsung"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy S3 ${txtrst}";;
    toro)
        densitytrigger="192"
        device="toro"
-       manufacturer="samsung"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for Verizon Samsung Galaxy Nexus ${txtrst}";;
    toroplus)
        densitytrigger="192"
        device="toroplus"
-       manufacturer="samsung"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for Sprint Samsung Galaxy Nexus ${txtrst}";;
    *)
-       echo -e "${bldred}Please input device name ${txtrst}"
-       exit;;
+       echo -e "${bldred}Wrong input, switching to manual build ${txtrst}"
+       echo -e ""
+       device=$ARGUMENTS
+       echo -e "${bldblu}Please write your device density trigger followed by [ENTER] ${txtrst}"
+       read density
+       densitytrigger=$density;;
 esac
 
 # decide what command to execute
@@ -82,8 +81,18 @@ case "$EXTRAS" in
        rm paranoid/.manifest;;
 esac
 
+# if our device doesn't have defined manifest, we copy the entire list of vendors and device trees to attempt a build
+if [ ! -f paranoid/manifests/"${device}_manifest.xml" ]
+then
+    echo -e ""
+    echo -e "${bldblu}Device manifest not found, fetching list ${txtrst}"
+    cp paranoid/manifests/full_manifest.xml .repo/local_manifest.xml
+    repo sync -j"$THREADS"
+    touch paranoid/.manifest
+fi
+
 # decide manifest to copy
-if [ ! -f paranoid/.manifest ]
+if [ ! -f paranoid/.manifest ] 
 then
     echo -e ""
     echo -e "${bldblu}Copying device manifest ${txtrst}"

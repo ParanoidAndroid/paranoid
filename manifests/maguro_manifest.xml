@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
+  <project name="koush/proprietary_vendor_samsung" path="vendor/samsung" revision="ics" />
   <project name="CyanogenMod/android_device_samsung_maguro" path="device/samsung/maguro" revision="ics" />
 </manifest>
