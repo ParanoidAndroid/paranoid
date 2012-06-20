@@ -11,6 +11,7 @@ bldblu=${txtbld}$(tput setaf 4) #  blue
 bldcya=${txtbld}$(tput setaf 6) #  cyan
 txtrst=$(tput sgr0)             # Reset
 
+THREADS="16"
 ARGUMENTS="$1"
 EXTRAS="$2"
 
@@ -69,11 +70,29 @@ esac
 
 # decide what command to execute
 case "$EXTRAS" in
+   threads)
+       echo -e "${bldblu}Please write desired threads followed by [ENTER] ${txtrst}"
+       read threads
+       THREADS=$threads;;
    clean)
        echo -e ""
        echo -e "${bldblu}Cleaning intermediates and output files ${txtrst}"
        make clean > /dev/null;;
+   forceupdate)
+       rm paranoid/.manifest;;
 esac
+
+echo -e ""
+echo -e "${bldblu}Copying device manifest ${txtrst}"
+cp paranoid/manifests/"${device}_manifest.xml" .repo/local_manifest.xml
+if [ ! -f paranoid/.manifest ]
+then
+    loadmanifest="true"
+    echo -e ""
+    echo -e "${bldblu}Syncing device sources ${txtrst}"
+    repo sync -j"$THREADS"
+    touch paranoid/.manifest
+fi
 
 echo -e ""
 # download prebuilt files
@@ -84,10 +103,10 @@ cd ./../..
 
 echo -e ""
 # sync with latest sources
-if [ "$SYNC" == "true" ]
+if [ "$SYNC" == "true" ] && [ "$loadmanifest" != "true" ]
 then
    echo -e "${bldblu}Fetching latest sources ${txtrst}"
-   repo sync -j16
+   repo sync -j"$THREADS"
    echo -e ""
 fi
 
@@ -106,7 +125,7 @@ echo -e ""
 echo -e "${bldblu}Starting compilation ${txtrst}"
 
 # start compilation
-brunch "pa_$device-userdebug";
+#brunch "pa_$device-userdebug";
 echo -e ""
 
 # finished? get elapsed time

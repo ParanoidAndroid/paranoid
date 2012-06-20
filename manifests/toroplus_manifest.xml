@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <project name="CyanogenMod/android_device_samsung_toroplus" path="device/samsung/toroplus" revision="ics" />
+</manifest>
