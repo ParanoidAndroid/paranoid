@@ -83,11 +83,11 @@ case "$EXTRAS" in
 esac
 
 # decide manifest to copy
-echo -e ""
-echo -e "${bldblu}Copying device manifest ${txtrst}"
-cp paranoid/manifests/"${device}_manifest.xml" .repo/local_manifest.xml
 if [ ! -f paranoid/.manifest ]
 then
+    echo -e ""
+    echo -e "${bldblu}Copying device manifest ${txtrst}"
+    cp paranoid/manifests/"${device}_manifest.xml" .repo/local_manifest.xml
     loadmanifest="true"
     echo -e ""
     echo -e "${bldblu}Syncing device sources ${txtrst}"
