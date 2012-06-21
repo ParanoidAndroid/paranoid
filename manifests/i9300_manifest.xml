@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <project name="D4rKn3sSyS/android_vendor_samsung_i9300" path="vendor/samsung/i9300" revision="ics" />
+  <project name="koush/proprietary_vendor_samsung" path="vendor/samsung" revision="ics" />
   <project name="CyanogenMod/android_device_samsung_i9300" path="device/samsung/i9300" revision="ics" />
   <project name="CyanogenMod/android_kernel_samsung_smdk4412" path="kernel/samsung/smdk4412" remote="github" />
   <project name="CyanogenMod/android_packages_apps_SamsungServiceMode" path="packages/apps/SamsungServiceMode" remote="github" />
