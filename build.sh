@@ -16,7 +16,7 @@ ARGUMENTS="$1"
 EXTRAS="$2"
 
 # if we have not extras, reduce parameter index by 1
-if [ "$EXTRAS" == "true" ]
+if [ "$EXTRAS" == "true" ] || [ "$EXTRAS" == "false" ]
 then
    SYNC="$2"
    CLEAN="$3"
