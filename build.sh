@@ -12,7 +12,7 @@ bldcya=${txtbld}$(tput setaf 6) #  cyan
 txtrst=$(tput sgr0)             # Reset
 
 THREADS="16"
-ARGUMENTS="$1"
+DEVICE="$1"
 EXTRAS="$2"
 
 # if we have not extras, reduce parameter index by 1
@@ -37,34 +37,26 @@ then
 fi
 
 # decide what device to build for
-case "$ARGUMENTS" in
+case "$DEVICE" in
    galaxys2)
-       densitytrigger="128"
        device="galaxys2"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy S2 ${txtrst}";;
    maguro)
-       densitytrigger="192"
        device="maguro"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy Nexus ${txtrst}";;
    galaxys3)
-       densitytrigger="192"
        device="i9300"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy S3 ${txtrst}";;
    toro)
-       densitytrigger="192"
        device="toro"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for Verizon Samsung Galaxy Nexus ${txtrst}";;
    toroplus)
-       densitytrigger="192"
        device="toroplus"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for Sprint Samsung Galaxy Nexus ${txtrst}";;
    *)
        echo -e "${bldred}Wrong input, switching to manual build ${txtrst}"
        echo -e ""
-       device=$ARGUMENTS
-       echo -e "${bldblu}Please write your device density trigger followed by [ENTER] ${txtrst}"
-       read density
-       densitytrigger=$density;;
+       device=$DEVICE;;
 esac
 
 # decide what command to execute
@@ -79,6 +71,11 @@ case "$EXTRAS" in
        make clean > /dev/null;;
    forceupdate)
        rm paranoid/.manifest;;
+
+   # If our script is called by java apps, we cannot use internet functions
+   java)
+       echo -e "${cya}Building via Java application - Internet functions disabled ${txtrst}"
+       JAVA="true";;
 esac
 
 # if our device doesn't have defined manifest, we copy the entire list of vendors and device trees to attempt a build
@@ -92,7 +89,7 @@ then
 fi
 
 # decide manifest to copy
-if [ ! -f paranoid/.manifest ] 
+if [ ! -f paranoid/.manifest ] && [ "$JAVA" != "true" ]
 then
     echo -e ""
     echo -e "${bldblu}Copying device manifest ${txtrst}"
@@ -105,15 +102,18 @@ then
 fi
 
 # download prebuilt files
-echo -e ""
-echo -e "${bldblu}Downloading prebuilts ${txtrst}"
-cd vendor/cm
-./get-prebuilts
-cd ./../..
+if [ "$JAVA" != "true" ]
+then
+    echo -e ""
+    echo -e "${bldblu}Downloading prebuilts ${txtrst}"
+    cd vendor/cm
+    ./get-prebuilts
+    cd ./../..
+fi
 
 # sync with latest sources
 echo -e ""
-if [ "$SYNC" == "true" ] && [ "$loadmanifest" != "true" ]
+if [ "$SYNC" == "true" ] && [ "$loadmanifest" != "true" ] && [ "$JAVA" != "true" ]
 then
    echo -e "${bldblu}Fetching latest sources ${txtrst}"
    repo sync -j"$THREADS"
