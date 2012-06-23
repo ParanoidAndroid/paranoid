@@ -37,7 +37,7 @@ There are also a few parameters that you can use together with before mentioned:
 
 * threads: Allows to choose a number of threads for syncing operation
 * clean: Removes intermediates and output files
-* java: Designed for running script with java apps. Using this will disable all internetdependent operations
+* java: Designed for running script with java apps. Using this will disable all internet dependent operations
 
 The usage is the same
     
