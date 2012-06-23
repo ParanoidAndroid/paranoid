@@ -36,8 +36,8 @@ And a third parameter for clearing console before building
 There are also a few parameters that you can use together with before mentioned:
 
 * threads: Allows to choose a number of threads for syncing operation
-* clean: Removes intermediates and output files.
-* forceupdate: Forces to get latest sources for selected device. Must be used if you're compiling for a new device
+* clean: Removes intermediates and output files
+* java: Designed for running script with java apps. Using this will disable all internetdependent operations
 
 The usage is the same
     

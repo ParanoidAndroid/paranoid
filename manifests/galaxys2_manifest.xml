@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <project name="D4rKn3sSyS/propietary_vendor_samsung" path="vendor/samsung" revision="ics" />
-  <project name="CyanogenMod/android_device_samsung_galaxys2" path="device/samsung/galaxys2" revision="ics" />
-  <project name="CyanogenMod/android_kernel_samsung_smdk4210" path="kernel/samsung/smdk4210" remote="github" />
-  <project name="CyanogenMod/android_packages_apps_SamsungServiceMode" path="packages/apps/SamsungServiceMode" remote="github" />
-</manifest>
