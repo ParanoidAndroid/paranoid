@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# get current path
+reldir=`dirname $0`
+cd $reldir
+DIR=`pwd`
+
 # Colorize and add text parameters
 red=$(tput setaf 1)             #  red
 grn=$(tput setaf 2)             #  green
@@ -14,6 +19,27 @@ txtrst=$(tput sgr0)             # Reset
 THREADS="16"
 DEVICE="$1"
 EXTRAS="$2"
+
+# check if buildtool exist on the environment
+if [ -f $DIR/ParanoidBuild.jar ]
+then
+    JAVA="true"
+else
+    JAVA="false"
+fi
+
+# sending fail status to server
+on_kill() {
+    if [ "$JAVA" == "true" ]
+    then
+        java -jar $DIR/ParanoidBuild.jar galaxys2 3
+    fi
+    exit 0
+}
+
+
+# override kill behaviour
+trap on_kill SIGINT
 
 # if we have not extras, reduce parameter index by 1
 if [ "$EXTRAS" == "true" ] || [ "$EXTRAS" == "false" ]
@@ -68,30 +94,27 @@ case "$EXTRAS" in
        echo -e ""
        echo -e "${bldblu}Cleaning intermediates and output files ${txtrst}"
        make clean > /dev/null;;
-
-   # If our script is called by java apps, we cannot use internet functions
-   java)
-       echo -e "${cya}Building via Java application - Internet functions disabled ${txtrst}"
-       JAVA="true";;
 esac
 
 # download prebuilt files
-if [ "$JAVA" != "true" ]
-then
-    echo -e ""
-    echo -e "${bldblu}Downloading prebuilts ${txtrst}"
-    cd vendor/cm
-    ./get-prebuilts
-    cd ./../..
-fi
+echo -e ""
+echo -e "${bldblu}Downloading prebuilts ${txtrst}"
+cd vendor/cm
+./get-prebuilts
+cd ./../..
 
 # sync with latest sources
 echo -e ""
-if [ "$SYNC" == "true" ] && [ "$JAVA" != "true" ]
+if [ "$SYNC" == "true" ]
 then
    echo -e "${bldblu}Fetching latest sources ${txtrst}"
    repo sync -j"$THREADS"
    echo -e ""
+fi
+
+if [ "$JAVA" == "true" ]
+then
+java -jar $DIR/ParanoidBuild.jar galaxys2 0
 fi
 
 # setup environment
@@ -110,6 +133,11 @@ echo -e "${bldblu}Starting compilation ${txtrst}"
 brunch "pa_$device-userdebug";
 echo -e ""
 
+if [ "$JAVA" == "true" ]
+then
+java -jar $DIR/ParanoidBuild.jar galaxys2 1
+fi
+
 # finished? get elapsed time
 res2=$(date +%s.%N)
-echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1)/60"|bc ) minutes ($(echo "$res2 - $res1"|bc ) seconds) ${txtrst}"
+echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|bc ) minutes ($(echo "$res2 - $res1"|bc ) seconds) ${txtrst}"
