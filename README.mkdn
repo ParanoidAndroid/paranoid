@@ -22,16 +22,16 @@ Make sure you have your device tree sources, located on
 
 Now you can run our build script:
 
-    ./paranoid/build.sh -device-
+    ./rom-build.sh -device-
 
 
 You can also use a second parameter for syncing sources before building
 
-    ./paranoid/build.sh -device- true
+    ./rom-build.sh -device- true
 
 And a third parameter for clearing console before building
 
-    ./paranoid/build.sh -device- -sync- true
+    ./rom-build.sh -device- -sync- true
 
 There are also a few parameters that you can use together with before mentioned:
 
@@ -41,7 +41,7 @@ There are also a few parameters that you can use together with before mentioned:
 
 The usage is the same
     
-    ./paranoid/build.sh -device- -parameters- -sync- -clear-
+    ./rom-build.sh -device- -parameters- -sync- -clear-
 
 Parameters will be considered false unless you set them to true
 
