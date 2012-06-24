@@ -20,6 +20,11 @@ THREADS="16"
 DEVICE="$1"
 EXTRAS="$2"
 
+# get current version
+MAJOR=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MAJOR = *' | sed  's/PA_VERSION_MAJOR = //g')
+MINOR=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MINOR = *' | sed  's/PA_VERSION_MINOR = //g')
+VERSION=$MAJOR.$MINOR
+
 # check if buildtool exist on the environment
 if [ -f $DIR/ParanoidBuild.jar ]
 then
@@ -32,7 +37,7 @@ fi
 on_interrupt() {
     if [ "$JAVA" == "true" ]
     then
-        java -jar $DIR/ParanoidBuild.jar $DEVICE 3
+        java -jar $DIR/ParanoidBuild.jar $DEVICE $VERSION 3
     fi
     exit 0
 }
@@ -115,7 +120,7 @@ fi
 # send building status to server
 if [ "$JAVA" == "true" ]
 then
-java -jar $DIR/ParanoidBuild.jar $DEVICE 0
+java -jar $DIR/ParanoidBuild.jar $DEVICE $VERSION 0
 fi
 
 # setup environment
@@ -137,7 +142,7 @@ echo -e ""
 # if we cant upload the file, status 4 will be sent
 if [ "$JAVA" == "true" ]
 then
-    java -jar $DIR/ParanoidBuild.jar $DEVICE 1
+    java -jar $DIR/ParanoidBuild.jar $DEVICE $VERSION 1
 fi
 
 # finished? get elapsed time
