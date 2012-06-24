@@ -28,18 +28,18 @@ else
     JAVA="false"
 fi
 
-# sending fail status to server
-on_kill() {
+# send interrupted status to server
+on_interrupt() {
     if [ "$JAVA" == "true" ]
     then
-        java -jar $DIR/ParanoidBuild.jar galaxys2 3
+        java -jar $DIR/ParanoidBuild.jar $DEVICE 3
     fi
     exit 0
 }
 
 
-# override kill behaviour
-trap on_kill SIGINT
+# trap interrupt behaviour
+trap on_interrupt SIGINT
 
 # if we have not extras, reduce parameter index by 1
 if [ "$EXTRAS" == "true" ] || [ "$EXTRAS" == "false" ]
@@ -112,9 +112,10 @@ then
    echo -e ""
 fi
 
+# send building status to server
 if [ "$JAVA" == "true" ]
 then
-java -jar $DIR/ParanoidBuild.jar galaxys2 0
+java -jar $DIR/ParanoidBuild.jar $DEVICE 0
 fi
 
 # setup environment
@@ -133,9 +134,10 @@ echo -e "${bldblu}Starting compilation ${txtrst}"
 brunch "pa_$device-userdebug";
 echo -e ""
 
+# if we cant upload the file, status 4 will be sent
 if [ "$JAVA" == "true" ]
 then
-java -jar $DIR/ParanoidBuild.jar galaxys2 1
+    java -jar $DIR/ParanoidBuild.jar $DEVICE 1
 fi
 
 # finished? get elapsed time
