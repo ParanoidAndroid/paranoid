@@ -67,19 +67,19 @@ clear
 case "$DEVICE" in
    galaxys2)
        device="galaxys2"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy S2 ${txtrst}";;
+       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for International Samsung Galaxy S2 ${txtrst}";;
    maguro)
        device="maguro"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy Nexus ${txtrst}";;
+       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for International Samsung Galaxy Nexus ${txtrst}";;
    galaxys3)
        device="i9300"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for International Samsung Galaxy S3 ${txtrst}";;
+       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for International Samsung Galaxy S3 ${txtrst}";;
    toro)
        device="toro"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for Verizon Samsung Galaxy Nexus ${txtrst}";;
+       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Verizon Samsung Galaxy Nexus ${txtrst}";;
    toroplus)
        device="toroplus"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid ${txtrst}${cya}for Sprint Samsung Galaxy Nexus ${txtrst}";;
+       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Sprint Samsung Galaxy Nexus ${txtrst}";;
    *)
        echo -e "${bldred}Wrong input, please select a valid device ${txtrst}"
        exit;;

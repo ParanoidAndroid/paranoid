@@ -40,7 +40,7 @@ There are also a few parameters that you can use together with before mentioned:
 
 The usage is the same
     
-    ./rom-build.sh -device- -parameters- -sync- -clear-
+    ./rom-build.sh -device- -parameters- -sync- -upload-
 
 Parameters will be considered false unless you set them to true
 
