@@ -35,7 +35,7 @@ fi
 
 # send interrupted status to server
 on_interrupt() {
-    if [ "$JAVA" == "true" ]
+    if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
     then
         java -jar $DIR/ParanoidBuild.jar $DEVICE $VERSION 3
     fi
@@ -50,22 +50,18 @@ trap on_interrupt SIGINT
 if [ "$EXTRAS" == "true" ] || [ "$EXTRAS" == "false" ]
 then
    SYNC="$2"
-   CLEAN="$3"
+   UPLOAD="$3"
 else
    SYNC="$3"
-   CLEAN="$4"
+   UPLOAD="$4"
 fi
 
 # get time of startup
 res1=$(date +%s.%N)
 
-if [ "$CLEAN" == "true" ]
-then
- 
-   # we don't allow scrollback buffer
-   echo -e '\0033\0143'
-   clear
-fi
+# we don't allow scrollback buffer
+echo -e '\0033\0143'
+clear
 
 # decide what device to build for
 case "$DEVICE" in
@@ -118,7 +114,7 @@ then
 fi
 
 # send building status to server
-if [ "$JAVA" == "true" ]
+if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
 then
 java -jar $DIR/ParanoidBuild.jar $DEVICE $VERSION 0
 fi
@@ -140,7 +136,7 @@ brunch "pa_$device-userdebug";
 echo -e ""
 
 # if we cant upload the file, status 4 will be sent
-if [ "$JAVA" == "true" ]
+if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
 then
     java -jar $DIR/ParanoidBuild.jar $DEVICE $VERSION 1
 fi
