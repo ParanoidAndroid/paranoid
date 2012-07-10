@@ -37,7 +37,7 @@ fi
 on_interrupt() {
     if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
     then
-        java -jar $DIR/ParanoidBuild.jar $DEVICE 3
+        java -jar $DIR/ParanoidBuild.jar $device 3
     fi
     exit 0
 }
@@ -116,7 +116,7 @@ fi
 # send building status to server
 if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
 then
-java -jar $DIR/ParanoidBuild.jar $DEVICE 0
+java -jar $DIR/ParanoidBuild.jar $device 0
 fi
 
 # setup environment
@@ -138,7 +138,7 @@ echo -e ""
 # if we cant upload the file, status 4 will be sent
 if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
 then
-    java -jar $DIR/ParanoidBuild.jar $DEVICE 1
+    java -jar $DIR/ParanoidBuild.jar $device 1
 fi
 
 # finished? get elapsed time
