@@ -85,6 +85,10 @@ case "$DEVICE" in
        exit;;
 esac
 
+echo -e "${cya}"
+./vendor/pa/tools/getdevicetree.py $device
+echo -e "${txtrst}"
+
 # decide what command to execute
 case "$EXTRAS" in
    threads)
