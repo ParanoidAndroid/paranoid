@@ -5,7 +5,7 @@ Getting started
 ---------------
 First you must initialize a repository with our sources:
 
-    repo init -u git://github.com/ParanoidAndroid/android.git -b jellybean
+    repo init -u git://github.com/ParanoidAndroid/android.git -b ics
 
 Then sync it up (This will take a while, so get a cup of coffee and some snickers):
 
