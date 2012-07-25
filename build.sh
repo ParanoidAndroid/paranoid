@@ -65,7 +65,7 @@ clear
 
 # decide what device to build for
 case "$DEVICE" in
-   i9100)
+   galaxys2)
        device="i9100"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for International Samsung Galaxy S2 ${txtrst}";;
    maguro)
