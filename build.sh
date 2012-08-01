@@ -80,6 +80,9 @@ case "$DEVICE" in
    toroplus)
        device="toroplus"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Sprint Samsung Galaxy Nexus ${txtrst}";;
+   grouper)
+       device="grouper"
+       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Asus Nexus 7 ${txtrst}";;
    *)
        echo -e "${bldred}Wrong input, please select a valid device ${txtrst}"
        exit;;
