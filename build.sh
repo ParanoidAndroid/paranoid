@@ -83,6 +83,9 @@ case "$DEVICE" in
    grouper)
        device="grouper"
        echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Asus Nexus 7 ${txtrst}";;
+   epicmtd)
+       device="epicmtd"
+       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Samsung Epic4g ${txtrst}";;
    *)
        echo -e "${bldred}Wrong input, please select a valid device ${txtrst}"
        exit;;
