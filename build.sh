@@ -26,18 +26,18 @@ MINOR=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MINOR = *' | s
 VERSION=$MAJOR.$MINOR
 
 # check if buildtool exist on the environment
-if [ -f $DIR/ParanoidBuild.jar ]
+if [ -f $DIR/ParanoidTools.jar ]
 then
-    JAVA="true"
+    TOOL="true"
 else
-    JAVA="false"
+    TOOL="false"
 fi
 
 # send interrupted status to server
 on_interrupt() {
-    if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
+    if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
     then
-        java -jar $DIR/ParanoidBuild.jar $device 3
+        java -jar $DIR/ParanoidTools.jar $device 3
     fi
     exit 0
 }
@@ -124,9 +124,9 @@ then
 fi
 
 # send building status to server
-if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
+if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
 then
-java -jar $DIR/ParanoidBuild.jar $device 0
+java -jar $DIR/ParanoidTools.jar $device 0
 fi
 
 # setup environment
@@ -146,9 +146,9 @@ brunch "pa_$device-userdebug";
 echo -e ""
 
 # if we cant upload the file, status 4 will be sent
-if [ "$JAVA" == "true" ] && [ "$UPLOAD" == "true" ]
+if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
 then
-    java -jar $DIR/ParanoidBuild.jar $device 1
+    java -jar $DIR/ParanoidTools.jar $device 1
 fi
 
 # finished? get elapsed time
