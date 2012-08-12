@@ -37,7 +37,7 @@ fi
 on_interrupt() {
     if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
     then
-        java -jar $DIR/ParanoidTools.jar $device 3
+        java -jar $DIR/ParanoidTools.jar $DEVICE 3
     fi
     exit 0
 }
@@ -63,36 +63,10 @@ res1=$(date +%s.%N)
 echo -e '\0033\0143'
 clear
 
-# decide what device to build for
-case "$DEVICE" in
-   galaxys2)
-       device="i9100"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for International Samsung Galaxy S2 ${txtrst}";;
-   maguro)
-       device="maguro"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for International Samsung Galaxy Nexus ${txtrst}";;
-   galaxys3)
-       device="i9300"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for International Samsung Galaxy S3 ${txtrst}";;
-   toro)
-       device="toro"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Verizon Samsung Galaxy Nexus ${txtrst}";;
-   toroplus)
-       device="toroplus"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Sprint Samsung Galaxy Nexus ${txtrst}";;
-   grouper)
-       device="grouper"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Asus Nexus 7 ${txtrst}";;
-   epicmtd)
-       device="epicmtd"
-       echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}${cya}for Samsung Epic4g ${txtrst}";;
-   *)
-       echo -e "${bldred}Wrong input, please select a valid device ${txtrst}"
-       exit;;
-esac
+echo -e "${cya}Building ${bldcya}ParanoidAndroid v$VERSION ${txtrst}";;
 
 echo -e "${cya}"
-./vendor/pa/tools/getdevicetree.py $device
+./vendor/pa/tools/getdevicetree.py $DEVICE
 echo -e "${txtrst}"
 
 # decide what command to execute
@@ -126,7 +100,7 @@ fi
 # send building status to server
 if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
 then
-java -jar $DIR/ParanoidTools.jar $device 0
+java -jar $DIR/ParanoidTools.jar $DEVICE 0
 fi
 
 # setup environment
@@ -136,19 +110,19 @@ echo -e "${bldblu}Setting up environment ${txtrst}"
 # lunch device
 echo -e ""
 echo -e "${bldblu}Lunching device ${txtrst}"
-lunch "pa_$device-userdebug";
+lunch "pa_$DEVICE-userdebug";
 
 echo -e ""
 echo -e "${bldblu}Starting compilation ${txtrst}"
 
 # start compilation
-brunch "pa_$device-userdebug";
+brunch "pa_$DEVICE-userdebug";
 echo -e ""
 
 # if we cant upload the file, status 4 will be sent
 if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
 then
-    java -jar $DIR/ParanoidTools.jar $device 1
+    java -jar $DIR/ParanoidTools.jar $DEVICE 1
 fi
 
 # finished? get elapsed time
