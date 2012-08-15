@@ -23,7 +23,8 @@ EXTRAS="$2"
 # get current version
 MAJOR=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MAJOR = *' | sed  's/PA_VERSION_MAJOR = //g')
 MINOR=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MINOR = *' | sed  's/PA_VERSION_MINOR = //g')
-VERSION=$MAJOR.$MINOR
+MAINTENANCE=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MAINTENANCE = *' | sed  's/PA_VERSION_MAINTENANCE = //g')
+VERSION=$MAJOR.$MINOR$MAINTENANCE
 
 # check if buildtool exist on the environment
 if [ -f $DIR/ParanoidTools.jar ]
