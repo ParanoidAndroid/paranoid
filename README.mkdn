@@ -49,6 +49,6 @@ This will make a signed zip located on out/target/product/-device-.
 Contribute with the project
 ---------------------------
 
-We're an open source project, and we're open to suggestions. Feel free to sumbit pull requests to our git
+We're an open source project, and we're open to suggestions. Feel free to sumbit patches to our [Gerrit](http://review.paranoid-rom.com/)
 
 
