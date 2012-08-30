@@ -29,10 +29,6 @@ You can also use a second parameter for syncing sources before building
 
     ./rom-build.sh -device- true
 
-And a third parameter used for nightlies, decides whether to push or not (Must have ParanoidTools.jar, not yet implemented)
-
-    ./rom-build.sh -device- -sync- true
-
 There are also a few parameters that you can use together with before mentioned:
 
 * threads: Allows to choose a number of threads for syncing operation
@@ -40,7 +36,7 @@ There are also a few parameters that you can use together with before mentioned:
 
 The usage is the same
     
-    ./rom-build.sh -device- -parameters- -sync- -push-
+    ./rom-build.sh -device- -parameters- -sync-
 
 Parameters will be considered false unless you set them to true
 

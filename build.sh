@@ -26,27 +26,6 @@ MINOR=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MINOR = *' | s
 MAINTENANCE=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MAINTENANCE = *' | sed  's/PA_VERSION_MAINTENANCE = //g')
 VERSION=$MAJOR.$MINOR$MAINTENANCE
 
-# check if buildtool exist on the environment
-if [ -f $DIR/ParanoidTools.jar ]
-then
-    TOOL="true"
-else
-    TOOL="false"
-fi
-
-# send interrupted status to server
-on_interrupt() {
-    if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
-    then
-        java -jar $DIR/ParanoidTools.jar $DEVICE 3
-    fi
-    exit 0
-}
-
-
-# trap interrupt behaviour
-trap on_interrupt SIGINT
-
 # if we have not extras, reduce parameter index by 1
 if [ "$EXTRAS" == "true" ] || [ "$EXTRAS" == "false" ]
 then
@@ -98,12 +77,6 @@ then
    echo -e ""
 fi
 
-# send building status to server
-if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
-then
-java -jar $DIR/ParanoidTools.jar $DEVICE 0
-fi
-
 # setup environment
 echo -e "${bldblu}Setting up environment ${txtrst}"
 . build/envsetup.sh
@@ -119,12 +92,6 @@ echo -e "${bldblu}Starting compilation ${txtrst}"
 # start compilation
 brunch "pa_$DEVICE-userdebug";
 echo -e ""
-
-# if we cant upload the file, status 4 will be sent
-if [ "$TOOL" == "true" ] && [ "$UPLOAD" == "true" ]
-then
-    java -jar $DIR/ParanoidTools.jar $DEVICE 1
-fi
 
 # finished? get elapsed time
 res2=$(date +%s.%N)
