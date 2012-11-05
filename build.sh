@@ -61,13 +61,6 @@ case "$EXTRAS" in
        make clean > /dev/null;;
 esac
 
-# download prebuilt files
-echo -e ""
-echo -e "${bldblu}Downloading prebuilts ${txtrst}"
-cd vendor/cm
-./get-prebuilts
-cd ./../..
-
 # sync with latest sources
 echo -e ""
 if [ "$SYNC" == "true" ]
