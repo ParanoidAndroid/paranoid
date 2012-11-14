@@ -83,7 +83,7 @@ echo -e ""
 echo -e "${bldblu}Starting compilation ${txtrst}"
 
 # start compilation
-make -j"$THREADS"
+mka bacon
 echo -e ""
 
 # finished? get elapsed time
