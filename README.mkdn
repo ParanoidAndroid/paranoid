@@ -5,7 +5,7 @@ Getting started
 ---------------
 First you must initialize a repository with our sources:
 
-    repo init -u git://github.com/ParanoidAndroid/android.git -b jellybean
+    repo init -u git://github.com/ParanoidAndroid/manifest.git -b jellybean
 
 Then sync it up (This will take a while, so get a cup of coffee and some snickers):
 
@@ -31,7 +31,7 @@ You can also use a second parameter for syncing sources before building
 
 There are also a few parameters that you can use together with before mentioned:
 
-* threads: Allows to choose a number of threads for syncing operation
+* threads: Allows to choose a number of threads for syncing/building
 * clean: Removes intermediates and output files
 
 The usage is the same
