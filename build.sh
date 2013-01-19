@@ -110,6 +110,9 @@ if [ "$SYNC" == "true" ]; then
 	echo -e ""
 fi
 
+echo -e "${bldblu}Saving build manifest${txtrst}"
+repo manifest -o vendor/pa/prebuilt/common/etc/build-manifest.xml -r
+
 if [ -r vendor/cm/get-prebuilts ]; then
 	if [ -r vendor/cm/proprietary/.get-prebuilts ]; then
 		echo -e "${bldgrn}Already downloaded prebuilts${txtrst}"
@@ -134,26 +137,31 @@ else
 	echo -e "${bldcya}Not CM/PA tree, skipping prebuilts${txtrst}"
 fi
 
-# setup environment
-echo -e ""
-echo -e "${bldblu}Setting up environment${txtrst}"
-. build/envsetup.sh
-
-# lunch/brunch device
-if [ -d vendor/pa ]; then
-	echo -e ""
-	echo -e "${bldblu}Lunching device [$DEVICE]${txtrst}"
-	export PREFS_FROM_SOURCE
-	lunch "pa_$DEVICE-userdebug";
-
-	echo -e "${bldblu}Starting compilation${txtrst}"
-	mka bacon
-	echo -e ""
+if [ -n "${INTERACTIVE}" ]; then
+		echo -e "${bldblu}Dropping to interactive shell${txtrst}"
+		echo -e "${bldblu}Remeber to lunch you device [${bldgrn}lunch pa_$DEVICE-userdebug${bldblu}]${txtrst}"
+		bash --init-file build/envsetup.sh -i
 else
+	# setup environment
 	echo -e ""
-	echo -e "${bldblu}Brunching device [$DEVICE]${txtrst}"
-	brunch $DEVICE
-	echo -e ""
+	echo -e "${bldblu}Setting up environment${txtrst}"
+	. build/envsetup.sh
+
+	# lunch/brunch device
+	if [ -d vendor/pa ]; then
+		echo -e ""
+		echo -e "${bldblu}Lunching device [$DEVICE]${txtrst}"
+		export PREFS_FROM_SOURCE
+		lunch "pa_$DEVICE-userdebug";
+
+		echo -e "${bldblu}Starting compilation${txtrst}"
+		mka bacon
+		echo -e ""
+	else
+		echo -e "${bldblu}Brunching device [$DEVICE]${txtrst}"
+		brunch $DEVICE
+		echo -e ""
+	fi
 fi
 
 if [ -n "${CCACHE_DIR}" ]; then
