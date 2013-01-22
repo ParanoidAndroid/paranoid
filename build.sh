@@ -17,9 +17,10 @@ txtrst=$(tput sgr0)             # Reset
 
 # Local defaults, can be overriden by env.
 : ${PREFS_FROM_SOURCE:="false"}
-#: ${USE_CCACHE="true"}
+#: ${USE_CCACHE:="true"}
+#: ${CCACHE_NOSTATS:="true"}
 #: ${CCACHE_DIR:="$DIR/../ccache"}
-: ${THREADS="16"}
+: ${THREADS:="16"}
 
 DEVICE="$1"
 EXTRAS="$2"
@@ -56,12 +57,24 @@ fi
 res1=$(date +%s.%N)
 
 # get ccache size at start
-if [ -n "${USE_CCACHE}" ]; then
+if [ "${USE_CCACHE}" == "true" ]; then
 	export USE_CCACHE
 	if [ -n "${CCACHE_DIR}" ]; then
 		export CCACHE_DIR
-		[ ! -d "${CCACHE_DIR}" ] && mkdir -p "${CCACHE_DIR}" && chmod ug+rwX "${CCACHE_DIR}"
-		cache1=$(du -sh ${CCACHE_DIR} | awk '{print $1}')
+		if [ ! -d "${CCACHE_DIR}" ]; then
+			mkdir -p "${CCACHE_DIR}"
+			chmod ug+rwX "${CCACHE_DIR}"
+			cache1=0
+		fi
+	else
+		CCACHE_DIR="${HOME}/.ccache"
+	fi
+	if [ -z "${cache1}" ]; then
+		if [ "${CCACHE_NOSTATS}" == "true" ]; then
+			cache1=$(du -sh ${CCACHE_DIR} | awk '{print $1}')
+		else
+			cache1=$(prebuilts/misc/linux-x86/ccache/ccache -s | grep "^cache size" | awk '{print $3$4}')
+		fi
 	fi
 fi
 
@@ -82,7 +95,6 @@ if [ -d vendor/pa ]; then
 else
 	echo -e "${bldcya}Not PA tree, skipping prebuilts${txtrst}"
 fi
-
 
 # decide what command to execute
 case "$EXTRAS" in
@@ -166,7 +178,11 @@ fi
 
 if [ -n "${CCACHE_DIR}" ]; then
 	# get ccache size
-	cache2=$(du -sh ${CCACHE_DIR} | awk '{print $1}')
+	if [ "${CCACHE_NOSTATS}" == "true" ] && ; then
+		cache2=$(du -sh ${CCACHE_DIR} | awk '{print $1}')
+	else
+		cache2=$(prebuilts/misc/linux-x86/ccache/ccache -s | grep "^cache size" | awk '{print $3$4}')
+	fi
 	echo -e "${bldgrn}cccache size is ${txtrst} ${grn}${cache2}${txtrst} (was ${grn}${cache1}${txtrst})"
 fi
 
