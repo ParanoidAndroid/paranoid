@@ -17,6 +17,7 @@ txtrst=$(tput sgr0)             # Reset
 
 # Local defaults, can be overriden by env.
 : ${PREFS_FROM_SOURCE:="false"}
+#: ${PREBUILTS_ALL:="true"}
 #: ${USE_CCACHE:="true"}
 #: ${CCACHE_NOSTATS:="true"}
 #: ${CCACHE_DIR:="$DIR/../ccache"}
@@ -125,6 +126,7 @@ fi
 echo -e "${bldblu}Saving build manifest${txtrst}"
 repo manifest -o vendor/pa/prebuilt/common/etc/build-manifest.xml -r
 
+export PREBUILTS_ALL
 if [ -r vendor/cm/get-prebuilts ]; then
 	if [ -r vendor/cm/proprietary/.get-prebuilts ]; then
 		echo -e "${bldgrn}Already downloaded prebuilts${txtrst}"
@@ -178,7 +180,7 @@ fi
 
 if [ -n "${CCACHE_DIR}" ]; then
 	# get ccache size
-	if [ "${CCACHE_NOSTATS}" == "true" ] && ; then
+	if [ "${CCACHE_NOSTATS}" == "true" ]; then
 		cache2=$(du -sh ${CCACHE_DIR} | awk '{print $1}')
 	else
 		cache2=$(prebuilts/misc/linux-x86/ccache/ccache -s | grep "^cache size" | awk '{print $3$4}')
