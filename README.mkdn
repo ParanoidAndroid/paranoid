@@ -14,20 +14,18 @@ Then sync it up (This will take a while, so get a cup of coffee and some snicker
 
 Building ParanoidAndroid
 ------------------------
-
 For building ParanoidAndroid you must cd to the working directory.
 Make sure you have your device tree sources, located on
 
-    cd device/-manufacturer-/-device-
+    cd device/<manufacturer>/<device>
 
 Now you can run our build script:
 
-    ./rom-build.sh -device-
-
+    ./build.sh <device>
 
 You can also use a second parameter for syncing sources before building
 
-    ./rom-build.sh -device- true
+    ./build.sh <device> true
 
 There are also a few parameters that you can use together with before mentioned:
 
@@ -35,16 +33,20 @@ There are also a few parameters that you can use together with before mentioned:
 * clean: Removes intermediates and output files
 
 The usage is the same
-    
-    ./rom-build.sh -device- -parameters- -sync-
+
+    ./build.sh <device> <parameters> <sync>
 
 Parameters will be considered false unless you set them to true
 
-This will make a signed zip located on out/target/product/-device-.
+This will make a signed zip located on out/target/product/<device>.
+
+There are some optional parameters you might use:
+* PREFS_FROM_SOURCE: Use it to enable build of PA Preferences application (available only for core PA team)
+* USE_CCACHE: Use it to improve consequent build speed. You also might CCACHE_DIR to specify alternate cache location which by default is on ~/./ccache. Very useful when home folder encryption is used.
+* INTERACTIVE: Use to enter interactive shell with build environment set up, instead of automatice build.
+
+    ```env [USE_CCACHE=true] [PREFS_FROM_SOURCE=true] [INTERACTIVE=true] ./build.sh <device> <parameters> <sync>```
 
 Contribute with the project
 ---------------------------
-
 We're an open source project, and we're open to suggestions. Feel free to sumbit patches to our [Gerrit](http://review.paranoid-rom.com/)
-
-
