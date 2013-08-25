@@ -71,9 +71,9 @@ then
 fi
 
 # java setup
-echo -e "${bldblu}Setting up java ${txtrst}"
-. vendor/pa/tools/setupjava.sh
-echo -e ""
+# echo -e "${bldblu}Setting up java ${txtrst}"
+# . vendor/pa/tools/setupjava.sh
+# echo -e ""
 
 # setup environment
 echo -e "${bldblu}Setting up environment ${txtrst}"
