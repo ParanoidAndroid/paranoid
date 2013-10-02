@@ -5,7 +5,7 @@ Getting started
 ---------------
 First you must initialize a repository with our sources:
 
-    repo init -u git://github.com/ParanoidAndroid/manifest.git -b jellybean
+    repo init -u git://github.com/ParanoidAndroid/manifest.git -b jb43
 
 Then sync it up (This will take a while, so get a cup of coffee and some snickers):
 
