@@ -25,6 +25,7 @@ MAJOR=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MAJOR = *' | s
 MINOR=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MINOR = *' | sed  's/PA_VERSION_MINOR = //g')
 MAINTENANCE=$(cat $DIR/vendor/pa/config/pa_common.mk | grep 'PA_VERSION_MAINTENANCE = *' | sed  's/PA_VERSION_MAINTENANCE = //g')
 VERSION=$MAJOR.$MINOR$MAINTENANCE
+DATE=$(date +%Y-%m-%d)
 
 # if we have not extras, reduce parameter index by 1
 if [ "$EXTRAS" == "true" ] || [ "$EXTRAS" == "false" ]
@@ -65,8 +66,8 @@ esac
 echo -e ""
 if [ "$SYNC" == "true" ]
 then
-   echo -e "${bldblu}Fetching latest sources ${txtrst}"
-   repo sync -j"$THREADS"
+   echo -e "${bldblu}Fetching latest sources (check 'logs/reposync' for sync logs)${txtrst}"
+   repo sync -j"$THREADS" 2>&1 | tee logs/reposync/pa_$DATE.log
    echo -e ""
 fi
 
@@ -85,10 +86,10 @@ echo -e "${bldblu}Lunching device ${txtrst}"
 lunch "pa_$DEVICE-userdebug";
 
 echo -e ""
-echo -e "${bldblu}Starting compilation ${txtrst}"
+echo -e "${bldblu}Starting compilation (check 'logs/build' for build logs)${txtrst}"
 
 # start compilation
-mka bacon
+mka bacon 2>&1 | tee logs/build/pa_$DEVICE-$VERSION-$DATE.log
 echo -e ""
 
 # finished? get elapsed time
